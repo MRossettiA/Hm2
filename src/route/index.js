@@ -1,5 +1,7 @@
 const { Router } = require("express");
-const { moviesController } = require("../controllers")
+const moviesRouter = require("./moviesRouter");
+
 const router = Router();
-router.get("/movies", moviesController);
+//verificaq si tiene varias / y las encausa
+router.use("/movies", moviesRouter);
 module.exports = router;
