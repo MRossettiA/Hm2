@@ -7,9 +7,10 @@ const app = express();
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
+
 app.use((req, res, next) => {
-    console.log("pasamos por mi mither");
-    next()
+    console.log("pasamos por mi Middleware");
+    next();
 }, 
 );
 //y las encausa a router

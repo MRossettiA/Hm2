@@ -1,4 +1,4 @@
-/*extra express2*/
+/*extra express2
 class Movie {
   constructor(title, year, director, duration, genre, rate, poster) {
       if (!title || !poster || !director) {
@@ -22,7 +22,7 @@ module.exports = {
             year: 2017,
             director: "James Gunn",
             duration: "2h 16min",
-            genre: ["Action", "Adventure", "Comedy"],
+            genere: ["Action", "Adventure", "Comedy"],
             rate: 7.7,
             poster:
               "https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg",
@@ -32,7 +32,7 @@ module.exports = {
             year: 1977,
             director: "George Lucas",
             duration: "2h 1min",
-            genre: ["Action", "Adventure", "Fantasy", "Sci-Fi"],
+            genere: ["Action", "Adventure", "Fantasy", "Sci-Fi"],
             rate: 8.7,
             poster:
               "https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_SX300.jpg",
@@ -42,7 +42,7 @@ module.exports = {
             year: 2001,
             director: "Peter Jackson",
             duration: "2h 58min",
-            genre: ["Action", "Adventure", "Drama", "Fantasy"],
+            genere: ["Action", "Adventure", "Drama", "Fantasy"],
             rate: 8.8,
             poster:
               "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg",
@@ -54,11 +54,36 @@ module.exports = {
           movie.year,
           movie.director,
           movie.duration,
-          movie.genre,
+          movie.genere,
           movie.rate,
           movie.poster
       ));
 
       return movies;
   }
-};
+};*/
+
+const Movie = require("../models/Movie.js");
+
+module.exports = {
+  getMovies: async () => { 
+    const movies = await Movie.find();   
+    return movies;
+  },
+  getMoviesById: async (id) => {
+   const movie = await Movie.findById(id);
+   return movie
+ },
+  findMovieByTitle: async (title) => {
+   const movie = await Movie.findOne({ title });
+   return movie;
+  },
+  createMovie: async (movie) => {
+   const newMovie = await Movie.create(movie);
+   return newMovie;
+   },
+  
+}  
+  
+
+console.log(Movie);

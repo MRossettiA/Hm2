@@ -1,14 +1,43 @@
+const { create } = require("../models/Movie");
 const moviesServices = require("../services/moviesServices");
 module.exports = {
-    getAllMovies: async (req, res) => {
-       try {
-           const movies = await moviesServices.getMovies();
-           res.status(200).json(movies);
-        
-       } catch (error) {
-        res.status(500).json({
-            error: "Error interno del servidor",
-       });
+    createMovie: async (req, res) => {
+        try {
+            // Extrae los datos del cuerpo de la solicitud
+            const { title, year, director, duration, genre, rate, poster } = req.body;
+            
+            // Crea una nueva película utilizando los datos del formulario
+            const newMovie = await moviesServices.createMovie({ title, year, director, duration, genre, rate, poster });
+            
+            // Devuelve la nueva película creada como respuesta
+            res.status(201).json(newMovie);
+        } catch (error) {
+            // Si ocurre algún error, devuelve un mensaje de error al cliente
+            res.status(500).json({ error: "Error interno del servidor" });
+        }
+    },
+
+    getMovies: async (req, res) => {
+        try {
+            const movies = await moviesServices.getMovies();
+            res.status(200).json(movies);  
+            
+        } catch (error) {
+            res.status(500).json({
+                error: "Error interno del servidor",
+            });
        }
     },
+    getMovieByTitle: async (req, res) => {
+        const { title } = req.body;
+        const movie = await moviesServices.findMovieByTitle(title);
+        res.status(200).json(movie); 
+    },
+    getMovieById: async (req, res) => {
+        const { id } = req.params;
+        const movie = await moviesServices.getMoviesById(id);
+        res.status(200).json(movie); 
+    },
+        
+
 };

@@ -1,7 +1,17 @@
 const { Router } = require("express");
-const moviesRouter = require("./moviesRouter");
+const moviesController = require("../controllers/moviesControllers");
+const { testController } = require("../controllers/");
+// Crear un nuevo enrutador para las rutas relacionadas con las películas
+const moviesRouter = Router();
+// Definir la ruta para obtener todas las películas
+moviesRouter.get("/movies", moviesController.getMovies);
+// Definir la ruta para obtener por titulo las películas
+moviesRouter.get("/movies/by", moviesController.getMovieByTitle);
 
-const router = Router();
-//verificaq si tiene varias / y las encausa
-router.use("/movies", moviesRouter);
-module.exports = router;
+// Definir la ruta para obtener por id
+moviesRouter.get("/movies/:id", moviesController.getMovieById);
+
+// Exportar el enrutador para su uso en otros archivos
+moviesRouter.post("/movies", moviesController.createMovie);
+
+module.exports = moviesRouter;
